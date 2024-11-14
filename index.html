@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation SQL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: #f5f5f5;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Styles de la sidebar */
+        .sidebar {
+            width: 300px;
+            background: #2c3e50;
+            padding: 20px;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 15px 0;
+            border-bottom: 1px solid #34495e;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: #ecf0f1;
+        }
+
+        .section-group {
+            margin-bottom: 15px;
+        }
+
+        .section-group-title {
+            font-weight: bold;
+            color: #3498db;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 8px 15px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: #34495e;
+        }
+
+        .nav-link.active {
+            background: #3498db;
+        }
+
+        .sub-nav-link {
+            padding-left: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Styles du contenu principal */
+        .main-content {
+            margin-left: 300px;
+            padding: 30px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #3498db;
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 15px;
+            background: #f1f8ff;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .tech-list li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tech-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .history-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            border-left: 2px solid #3498db;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>Documentation SQL</h1>
+        </div>
+        <nav id="navigation">
+            <div class="section-group">
+                <div class="nav-item">
+                    <a class="nav-link active" onclick="showSection('introduction')">Introduction</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('definitions')">Définitions</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-group-title">Les commandes</div>
+                <div class="nav-item">
+                    <a class="nav-link sub-nav-link" onclick="showSection('ddl')">DDL</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link sub-nav-link" onclick="showSection('dml')">DML</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link sub-nav-link" onclick="showSection('dcl')">DCL</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-group-title">Les objets</div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('objets')">Types d'objets</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-group-title">Création et manipulation</div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('creer-bdd')">Créer une BDD</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('creer-table')">Créer une table</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('operations-crud')">INSERT/UPDATE/DELETE/DROP</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-group-title">Clés et contraintes</div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('cles')">Clés primaires et étrangères</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-group-title">Opérations</div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('selection')">Opérations de sélection</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('operateurs')">Opérateurs</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <!-- Section Introduction -->
+        <section id="introduction" class="section active">
+            <div class="content-section">
+                <h1>Introduction au SQL</h1>
+                <p class="highlight-box">
+                    Le SQL (Structured Query Language) est un langage informatique spécialement conçu pour 
+                    interagir avec les bases de données relationnelles. Créé dans les années 1970, il est 
+                    devenu un standard de facto dans la gestion des données au sein de nombreuses applications 
+                    et systèmes informatiques.
+                </p>
+
+                <h2>Présentation générale</h2>
+                <p>
+                    Le SQL permet de manipuler les données stockées dans des bases de données de manière 
+                    structurée et efficace. Il offre un ensemble complet de commandes pour effectuer 
+                    diverses opérations sur les données.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Structure des données</h3>
+                        <p>
+                            Les bases de données relationnelles sont constituées de tables organisées en 
+                            colonnes et lignes, particulièrement bien adaptées à l'utilisation du SQL.
+                        </p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Systèmes compatibles</h3>
+                        <p>
+                            De nombreux systèmes de gestion de bases de données (SGBD) prennent en charge le SQL :
+                        </p>
+                        <ul class="tech-list">
+                            <li>MySQL</li>
+                            <li>PostgreSQL</li>
+                            <li>Microsoft SQL Server</li>
+                            <li>Oracle</li>
+                            <li>SQLite</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Histoire et évolution</h2>
+                <div class="history-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">1970</div>
+                        <p>
+                            Développement initial du SQL par IBM Research. Le langage était initialement 
+                            appelé SEQUEL (Structured English Query Language).
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">1974</div>
+                        <p>Publication des premiers articles décrivant le langage SQL.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">1986</div>
+                        <p>ANSI publie la première norme SQL (SQL-86).</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">1989</div>
+                        <p>ISO adopte SQL comme norme internationale.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Aujourd'hui</div>
+                        <p>
+                            Le SQL continue d'évoluer avec de nouvelles fonctionnalités et améliorations 
+                            régulières.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Définitions -->
+        <!-- Section Définitions -->
+<section id="definitions" class="section">
+    <div class="content-section">
+        <h1>Définitions</h1>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>SQL (Structured Query Language)</h3>
+                <p>
+                    Le SQL est un langage informatique conçu pour gérer et interagir avec les bases 
+                    de données relationnelles. Il permet de créer, mettre à jour, supprimer et 
+                    interroger des données dans une base de données.
+                </p>
+            </div>
+            <div class="feature-item">
+                <h3>Base de données</h3>
+                <p>
+                    Une base de données est un ensemble organisé de données stockées électroniquement. 
+                    Les données sont structurées de manière à pouvoir être facilement gérées, mises 
+                    à jour et consultées.
+                </p>
+            </div>
+            <div class="feature-item">
+                <h3>SGBD</h3>
+                <p>
+                    Un Système de Gestion de Base de Données est un logiciel qui permet de stocker, 
+                    d'organiser et de gérer efficacement les données dans une base de données.
+                </p>
+            </div>
+            <div class="feature-item">
+                <h3>Table</h3>
+                <p>
+                    Une table est une structure qui stocke des données sous forme de lignes 
+                    (enregistrements) et de colonnes (champs). Chaque ligne représente un enregistrement unique, 
+                    tandis que chaque colonne correspond à un attribut spécifique.
+                </p>
+            </div>
+            <div class="feature-item">
+                <h3>Requête</h3>
+                <p>
+                    Une requête SQL est une instruction ou une commande qui permet d'interroger une base de 
+                    données pour récupérer des données spécifiques. Les requêtes SQL sont utilisées pour 
+                    extraire des informations, effectuer des calculs et générer des rapports à partir des 
+                    données stockées.
+                </p>
+                <div class="code-block">
+                    -- Exemple de requête simple : 
+					<br>
+                    SELECT nom, prenom 
+                    FROM utilisateurs 
+                    WHERE age > 18;
+                </div>
+            </div>
+            <div class="feature-item">
+                <h3>Types de Requêtes</h3>
+                <ul class="tech-list">
+                    <li>Requêtes de sélection (SELECT)</li>
+                    <li>Requêtes de modification (UPDATE)</li>
+                    <li>Requêtes d'insertion (INSERT)</li>
+                    <li>Requêtes de suppression (DELETE)</li>
+                    <li>Requêtes de création de structure (CREATE)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Section DDL -->
+        <!-- Section DDL -->
+<section id="ddl" class="section">
+    <div class="content-section">
+        <h1>Commandes DDL (Data Definition Language)</h1>
+        <p class="highlight-box">
+            Les commandes DDL sont utilisées pour définir et modifier la structure de la base de données.
+            Ces commandes permettent de créer, modifier et supprimer les objets de la base de données.
+        </p>
+		<h2>Principales commandes DDL</h2>
+		<div class="code-block">
+			<div class="command-item">
+				<span class="command">CREATE TABLE</span>
+				<span class="description">Permet de créer une nouvelle table dans la base de données</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">ALTER TABLE</span>
+				<span class="description">Modifie la structure d'une table existante (ajouter/supprimer des colonnes, modifier des contraintes)</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">DROP TABLE</span>
+				<span class="description">Supprime complètement une table et toutes ses données</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">CREATE DATABASE</span>
+				<span class="description">Crée une nouvelle base de données</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">ALTER DATABASE</span>
+				<span class="description">Modifie les propriétés d'une base de données existante</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">DROP DATABASE</span>
+				<span class="description">Supprime complètement une base de données</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">CREATE INDEX</span>
+				<span class="description">Crée un index sur une ou plusieurs colonnes pour optimiser les recherches</span>
+			</div>
+		
+			<div class="command-item">
+				<span class="command">DROP INDEX</span>
+				<span class="description">Supprime un index existant</span>
+			</div>
+		</div>
+	</section>
+		
+		<style>
+		.code-block {
+			background: #2c3e50;
+			color: #ecf0f1;
+			padding: 20px;
+			border-radius: 5px;
+			margin: 15px 0;
+			font-family: 'Courier New', monospace;
+			line-height: 1.6;
+		}
+		
+		.command-item {
+			padding: 10px 0;
+			border-bottom: 1px solid #34495e;
+			display: flex;
+			align-items: flex-start;
+		}
+		
+		.command-item:last-child {
+			border-bottom: none;
+		}
+		
+		.command {
+			color: #3498db;
+			font-weight: bold;
+			min-width: 200px;
+			padding-right: 20px;
+		}
+		
+		.description {
+			color: #ecf0f1;
+		}
+		</style>
+
+		<!-- Section DML -->
+<!-- Section DML -->
+<section id="dml" class="section">
+    <div class="content-section">
+        <h1>Commandes DML (Data Manipulation Language)</h1>
+        <p class="highlight-box">
+            Les commandes DML sont utilisées pour manipuler les données stockées dans une base de données.
+        </p>
+
+        <h2>Principales commandes DML</h2>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command">SELECT</span>
+                <span class="description">Récupère des données depuis une ou plusieurs tables en spécifiant les colonnes à récupérer et les conditions de filtrage</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">INSERT INTO</span>
+                <span class="description">Ajoute de nouveaux enregistrements dans une table</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">UPDATE</span>
+                <span class="description">Modifie des données existantes dans une table en fonction de certaines conditions</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">DELETE FROM</span>
+                <span class="description">Supprime des enregistrements d'une table en fonction de certaines conditions</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">MERGE</span>
+                <span class="description">Effectue une opération conditionnelle qui permet d'insérer, mettre à jour ou supprimer des données en fonction de certaines conditions</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">TRUNCATE TABLE</span>
+                <span class="description">Supprime toutes les données d'une table, mais conserve la structure de la table</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">REPLACE INTO</span>
+                <span class="description">Insère une nouvelle ligne dans une table ou remplace une ligne existante si une contrainte d'unicité est violée</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">UPSERT</span>
+                <span class="description">Une opération qui insère une ligne si elle n'existe pas ou la met à jour si elle existe déjà</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">CALL</span>
+                <span class="description">Utilisée pour exécuter des procédures stockées ou des fonctions définies par l'utilisateur</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section DCL -->
+<section id="dcl" class="section">
+    <div class="content-section">
+        <h1>Commandes DCL (Data Control Language)</h1>
+        <p class="highlight-box">
+            Les commandes DCL sont utilisées pour gérer les autorisations, les privilèges et les permissions d'accès aux données dans une base de données.
+        </p>
+
+        <h2>Principales commandes DCL</h2>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command">GRANT</span>
+                <span class="description">La commande GRANT est utilisée pour accorder des privilèges ou des autorisations à un utilisateur ou à un rôle sur des objets de la base de données, tels que des tables, des vues, des procédures stockées, etc.</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">REVOKE</span>
+                <span class="description">La commande REVOKE est utilisée pour révoquer des privilèges ou des autorisations précédemment accordés à un utilisateur ou à un rôle</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">DENY</span>
+                <span class="description">La commande DENY est utilisée pour refuser spécifiquement un privilège ou une autorisation à un utilisateur ou à un rôle, ce qui prévaut sur les autorisations accordées par GRANT</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">COMMIT</span>
+                <span class="description">La commande COMMIT est utilisée pour valider et enregistrer définitivement les modifications apportées à la base de données, les rendant ainsi permanentes</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">ROLLBACK</span>
+                <span class="description">La commande ROLLBACK est utilisée pour annuler et annihiler toutes les modifications non encore validées effectuées depuis le dernier COMMIT</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command">SAVEPOINT</span>
+                <span class="description">La commande SAVEPOINT est utilisée pour définir un point de sauvegarde dans une transaction, ce qui permet de revenir à ce point si nécessaire sans annuler l'intégralité de la transaction</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Objets -->
+<section id="objets" class="section">
+	<div class="content-section">
+		<h1>Les Objets SQL</h1>
+		<p class="highlight-box">
+			En SQL, les "objets" font référence aux entités que vous manipulez dans une base de données. Les principaux types d'objets dans une base de données relationnelle incluent les tables, les vues, les procédures stockées, les déclencheurs et les index.
+		</p>
+ 
+		<h2>Principaux types d'objets</h2>
+		<div class="code-block">
+			<div class="command-item">
+				<span class="command">Table</span>
+				<span class="description">Une table est une structure fondamentale dans une base de données relationnelle. Elle est utilisée pour stocker des données sous forme de lignes et de colonnes. Chaque colonne a un nom et un type de données spécifique, tandis que chaque ligne représente un enregistrement unique. Les tables sont définies à l'aide de la commande DDL CREATE TABLE.</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command">Vue</span>
+				<span class="description">Une vue est une représentation virtuelle d'une ou plusieurs tables dans une base de données. Elle permet de définir une requête SQL qui renvoie un ensemble de données spécifique. Les vues sont utiles pour simplifier l'accès aux données en fournissant un moyen de masquer la complexité des requêtes sous-jacentes.</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command">Procédure stockée</span>
+				<span class="description">Une procédure stockée est un ensemble d'instructions SQL pré-enregistrées qui peuvent être exécutées en tant que routine. Elles sont utilisées pour effectuer des tâches spécifiques, telles que la manipulation de données, la génération de rapports ou d'autres opérations complexes. Les procédures stockées sont créées à l'aide de la commande DDL CREATE PROCEDURE.</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command">Déclencheur (Trigger)</span>
+				<span class="description">Un déclencheur est un ensemble de code SQL associé à une table qui est automatiquement activé en réponse à certaines opérations, telles que l'insertion, la mise à jour ou la suppression de données dans la table. Les déclencheurs sont utiles pour appliquer des règles métier, effectuer des vérifications de contrainte ou enregistrer des audits.</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command">Index</span>
+				<span class="description">Un index est une structure de données qui améliore les performances des opérations de recherche dans une table. Il est créé sur une ou plusieurs colonnes de la table et stocke des données permettant d'accéder rapidement aux enregistrements. Les index sont créés à l'aide de la commande DDL CREATE INDEX.</span>
+			</div>
+		</div>
+	</div>
+ </section>
+
+ <section id="creer-bdd" class="section">
+	<div class="content-section">
+		<h1>Créer une base de données</h1>
+ 
+		<h2>Syntaxe de base</h2>
+		<div class="code-block">
+			<div class="command-item">
+				<span class="command-label">Syntaxe simple</span>
+				<span class="command-code">
+ CREATE DATABASE nom_de_la_base_de_donnees;
+				</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command-label">Avec options (MySQL)</span>
+				<span class="command-code">
+ CREATE DATABASE MaBaseDeDonnees 
+ CHARACTER SET utf8 
+ COLLATE utf8_general_ci;
+				</span>
+			</div>
+		</div>
+ 
+		<h2>Création de table</h2>
+		<div class="code-block">
+			<div class="command-item">
+				<span class="command-label">Syntaxe générale</span>
+				<span class="command-code">
+ CREATE TABLE nom_de_la_table (
+	nom_colonne1 type_de_donne1,
+	nom_colonne2 type_de_donne2,
+	... nom_colonneN type_de_donneN
+ );
+				</span>
+			</div>
+ 
+			<div class="command-item">
+				<span class="command-label">Exemple concret</span>
+				<span class="command-code">
+ CREATE TABLE utilisateurs (
+	id INT PRIMARY KEY,
+	nom VARCHAR(50),
+	prenom VARCHAR(50),
+	age INT,
+	email VARCHAR(100),
+	date_inscription DATE
+ );
+				</span>
+			</div>
+		</div>
+	</div>
+ </section>
+ 
+ <style>
+ .command-label {
+	color: #3498db;
+	min-width: 200px;
+	display: inline-block;
+	font-family: 'Courier New', monospace;
+ }
+ 
+ .command-code {
+	color: #ecf0f1;
+	font-family: 'Courier New', monospace;
+	display: block;
+	white-space: pre;
+	padding-left: 20px;
+ }
+ 
+ .command-item {
+	padding: 10px 0;
+	border-bottom: 1px solid #34495e;
+ }
+ 
+ .command-item:last-child {
+	border-bottom: none;
+ }
+ </style>
+
+        <!-- ... autres sections à suivre ... -->
+
+    </main>
+
+	<script>
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mettre à jour la navigation active
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Pour mobile : défiler en haut
+            if (window.innerWidth <= 768) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Mettre à jour l'URL sans rechargement
+            window.history.pushState({}, '', `#${sectionId}`);
+        }
+
+        // Gérer le bouton retour du navigateur
+        window.addEventListener('popstate', function() {
+            const sectionId = window.location.hash.slice(1) || 'introduction';
+            showSection(sectionId);
+        });
+
+        // Charger la bonne section au chargement initial
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionId = window.location.hash.slice(1) || 'introduction';
+            showSection(sectionId);
+        });
+    </script>
+</body>
+</html>
