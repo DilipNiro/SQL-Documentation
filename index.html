@@ -4,219 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation SQL</title>
+	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: #f5f5f5;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Styles de la sidebar */
-        .sidebar {
-            width: 300px;
-            background: #2c3e50;
-            padding: 20px;
-            color: white;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar-header {
-            padding: 15px 0;
-            border-bottom: 1px solid #34495e;
-            margin-bottom: 20px;
-        }
-
-        .sidebar-header h1 {
-            font-size: 1.5rem;
-            color: #ecf0f1;
-        }
-
-        .section-group {
-            margin-bottom: 15px;
-        }
-
-        .section-group-title {
-            font-weight: bold;
-            color: #3498db;
-            padding: 10px 15px;
-            font-size: 1.1rem;
-        }
-
-        .nav-item {
-            margin-bottom: 5px;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 8px 15px;
-            color: #ecf0f1;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            background: #34495e;
-        }
-
-        .nav-link.active {
-            background: #3498db;
-        }
-
-        .sub-nav-link {
-            padding-left: 30px;
-            font-size: 0.9rem;
-        }
-
-        /* Styles du contenu principal */
-        .main-content {
-            margin-left: 300px;
-            padding: 30px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .content-section {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin: 20px 0 15px;
-            font-size: 1.5rem;
-        }
-
-        h3 {
-            color: #3498db;
-            margin: 15px 0 10px;
-            font-size: 1.2rem;
-        }
-
-        p {
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .highlight-box {
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .tech-list {
-            list-style: none;
-            padding: 15px;
-            background: #f1f8ff;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .tech-list li {
-            margin: 10px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .tech-list li::before {
-            content: "•";
-            color: #3498db;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .feature-item {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .history-timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-item {
-            margin-bottom: 20px;
-            padding-left: 30px;
-            border-left: 2px solid #3498db;
-        }
-
-        .timeline-date {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 15px;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+		/* Styles globaux */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.6;
+			background: #f5f5f5;
+			display: flex;
+			min-height: 100vh;
+		}
+		
+		/* Styles de la sidebar */
+		.sidebar {
+			width: 300px;
+			background: #2c3e50;
+			padding: 20px;
+			color: white;
+			position: fixed;
+			height: 100vh;
+			overflow-y: auto;
+		}
+		
+		.sidebar-header {
+			padding: 15px 0;
+			border-bottom: 1px solid #34495e;
+			margin-bottom: 20px;
+		}
+		
+		.sidebar-header h1 {
+			font-size: 1.5rem;
+			color: #ecf0f1;
+		}
+		
+		.section-group {
+			margin-bottom: 15px;
+		}
+		
+		.section-group-title {
+			font-weight: bold;
+			color: #3498db;
+			padding: 10px 15px;
+			font-size: 1.1rem;
+		}
+		
+		.nav-item {
+			margin-bottom: 5px;
+		}
+		
+		.nav-link {
+			display: block;
+			padding: 8px 15px;
+			color: #ecf0f1;
+			text-decoration: none;
+			border-radius: 5px;
+			transition: background-color 0.3s;
+			font-size: 0.95rem;
+			cursor: pointer;
+		}
+		
+		.nav-link:hover {
+			background: #34495e;
+		}
+		
+		.nav-link.active {
+			background: #3498db;
+		}
+		
+		.sub-nav-link {
+			padding-left: 30px;
+			font-size: 0.9rem;
+		}
+		
+		/* Styles du contenu principal */
+		.main-content {
+			margin-left: 300px;
+			padding: 30px;
+			flex: 1;
+			overflow-y: auto;
+		}
+		
+		.section {
+			display: none;
+		}
+		
+		.section.active {
+			display: block;
+		}
+		
+		.content-section {
+			background: white;
+			border-radius: 8px;
+			padding: 25px;
+			margin-bottom: 30px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		
+		h1 {
+			color: #2c3e50;
+			margin-bottom: 20px;
+			padding-bottom: 10px;
+			border-bottom: 2px solid #3498db;
+		}
+		
+		h2 {
+			color: #2c3e50;
+			margin: 20px 0 15px;
+			font-size: 1.5rem;
+		}
+		
+		h3 {
+			color: #3498db;
+			margin: 15px 0 10px;
+			font-size: 1.2rem;
+		}
+		
+		p {
+			margin-bottom: 15px;
+			line-height: 1.7;
+		}
+		
+		/* Tables spéciales */
+		.sql-table {
+			width: 100%;
+			background: #2c3e50;
+			border-radius: 8px;
+			overflow: hidden;
+			margin: 20px 0;
+		}
+		
+		.sql-table td {
+			padding: 12px 20px;
+			border-bottom: 1px solid #34495e;
+		}
+		
+		.sql-table tr:last-child td {
+			border-bottom: none;
+		}
+		
+		.sql-table .operator-name {
+			color: #3498db;
+			font-family: 'Courier New', monospace;
+			width: 25%;
+		}
+		
+		.sql-table .operator-desc {
+			color: white;
+			width: 35%;
+		}
+		
+		.sql-table .operator-example {
+			color: #2ecc71;
+			font-family: 'Courier New', monospace;
+		}
+		
+		/* Code blocks */
+		.code-block {
+			background: #2c3e50;
+			color: #ecf0f1;
+			padding: 20px;
+			border-radius: 5px;
+			margin: 15px 0;
+			font-family: 'Courier New', monospace;
+		}
+		
+		.command-item {
+			padding: 15px 0;
+			border-bottom: 1px solid #34495e;
+		}
+		
+		.command-item:last-child {
+			border-bottom: none;
+		}
+		
+		.command-label, .command {
+			color: #3498db;
+			display: block;
+			margin-bottom: 5px;
+			min-width: 200px;
+			padding-right: 20px;
+		}
+		
+		.command-code, .description {
+			color: #2ecc71;
+			display: block;
+			padding-left: 20px;
+		}
+		
+		/* Listes et boîtes */
+		.highlight-box {
+			background: #f8f9fa;
+			border-left: 4px solid #3498db;
+			padding: 15px;
+			margin: 20px 0;
+			border-radius: 0 4px 4px 0;
+		}
+		
+		.tech-list {
+			list-style: none;
+			padding: 15px;
+			background: #f1f8ff;
+			border-radius: 8px;
+			margin: 15px 0;
+		}
+		
+		.tech-list li {
+			margin: 10px 0;
+			padding-left: 20px;
+			position: relative;
+		}
+		
+		.tech-list li::before {
+			content: "•";
+			color: #3498db;
+			font-weight: bold;
+			position: absolute;
+			left: 0;
+		}
+		
+		/* Responsive */
+		@media (max-width: 768px) {
+			.sidebar {
+				width: 100%;
+				height: auto;
+				position: static;
+			}
+		
+			.main-content {
+				margin-left: 0;
+				padding: 15px;
+			}
+		}
+		</style>
 </head>
 <body>
     <div class="sidebar">
@@ -290,6 +315,7 @@
 
     <main class="main-content">
         <!-- Section Introduction -->
+
         <section id="introduction" class="section active">
             <div class="content-section">
                 <h1>Introduction au SQL</h1>
@@ -431,90 +457,75 @@
 
         <!-- Section DDL -->
         <!-- Section DDL -->
-<section id="ddl" class="section">
-    <div class="content-section">
-        <h1>Commandes DDL (Data Definition Language)</h1>
-        <p class="highlight-box">
-            Les commandes DDL sont utilisées pour définir et modifier la structure de la base de données.
-            Ces commandes permettent de créer, modifier et supprimer les objets de la base de données.
-        </p>
-		<h2>Principales commandes DDL</h2>
-		<div class="code-block">
-			<div class="command-item">
-				<span class="command">CREATE TABLE</span>
-				<span class="description">Permet de créer une nouvelle table dans la base de données</span>
+		<section id="ddl" class="section">
+			<div class="content-section">
+				<h1>Commandes DDL (Data Definition Language)</h1>
+				<p class="highlight-box">
+					Les commandes DDL sont utilisées pour définir et modifier la structure de la base de données.
+					Ces commandes permettent de créer, modifier et supprimer les objets de la base de données.
+				</p>
+		
+				<h2>Principales commandes DDL</h2>
+				<div class="sql-table">
+					<table>
+						<tbody>
+							<tr>
+								<td class="operator-name">CREATE TABLE</td>
+								<td class="operator-desc">Permet de créer une nouvelle table dans la base de données.</td>
+								<td class="operator-example">CREATE TABLE nom_table (id INT, nom VARCHAR(50));</td>
+							</tr>
+							<tr>
+								<td class="operator-name">ALTER TABLE</td>
+								<td class="operator-desc">Modifie la structure d'une table existante.</td>
+								<td class="operator-example">ALTER TABLE nom_table ADD colonne VARCHAR(50);</td>
+							</tr>
+							<tr>
+								<td class="operator-name">DROP TABLE</td>
+								<td class="operator-desc">Supprime complètement une table et toutes ses données.</td>
+								<td class="operator-example">DROP TABLE nom_table;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">CREATE DATABASE</td>
+								<td class="operator-desc">Crée une nouvelle base de données.</td>
+								<td class="operator-example">CREATE DATABASE nom_base;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">ALTER DATABASE</td>
+								<td class="operator-desc">Modifie les propriétés d'une base de données existante.</td>
+								<td class="operator-example">ALTER DATABASE nom_base SET CHARSET utf8;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">DROP DATABASE</td>
+								<td class="operator-desc">Supprime complètement une base de données.</td>
+								<td class="operator-example">DROP DATABASE nom_base;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">ALTER TABLE - ADD</td>
+								<td class="operator-desc">Ajoute une nouvelle colonne à une table existante.</td>
+								<td class="operator-example">ALTER TABLE nom_table ADD colonne type_donnee;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">ALTER TABLE - DROP</td>
+								<td class="operator-desc">Supprime une colonne d'une table existante.</td>
+								<td class="operator-example">ALTER TABLE nom_table DROP COLUMN colonne;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">ALTER TABLE - ALTER</td>
+								<td class="operator-desc">Modifie le type de données d'une colonne existante.</td>
+								<td class="operator-example">ALTER TABLE nom_table ALTER COLUMN colonne SET DATA TYPE nouveau_type;</td>
+							</tr>
+							<tr>
+								<td class="operator-name">TRUNCATE</td>
+								<td class="operator-desc">Vide une table en conservant sa structure.</td>
+								<td class="operator-example">TRUNCATE TABLE nom_table;</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
+		</section>
 		
-			<div class="command-item">
-				<span class="command">ALTER TABLE</span>
-				<span class="description">Modifie la structure d'une table existante (ajouter/supprimer des colonnes, modifier des contraintes)</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">DROP TABLE</span>
-				<span class="description">Supprime complètement une table et toutes ses données</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">CREATE DATABASE</span>
-				<span class="description">Crée une nouvelle base de données</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">ALTER DATABASE</span>
-				<span class="description">Modifie les propriétés d'une base de données existante</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">DROP DATABASE</span>
-				<span class="description">Supprime complètement une base de données</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">CREATE INDEX</span>
-				<span class="description">Crée un index sur une ou plusieurs colonnes pour optimiser les recherches</span>
-			</div>
-		
-			<div class="command-item">
-				<span class="command">DROP INDEX</span>
-				<span class="description">Supprime un index existant</span>
-			</div>
-		</div>
-	</section>
-		
-		<style>
-		.code-block {
-			background: #2c3e50;
-			color: #ecf0f1;
-			padding: 20px;
-			border-radius: 5px;
-			margin: 15px 0;
-			font-family: 'Courier New', monospace;
-			line-height: 1.6;
-		}
-		
-		.command-item {
-			padding: 10px 0;
-			border-bottom: 1px solid #34495e;
-			display: flex;
-			align-items: flex-start;
-		}
-		
-		.command-item:last-child {
-			border-bottom: none;
-		}
-		
-		.command {
-			color: #3498db;
-			font-weight: bold;
-			min-width: 200px;
-			padding-right: 20px;
-		}
-		
-		.description {
-			color: #ecf0f1;
-		}
-		</style>
+	
 
 		<!-- Section DML -->
 <!-- Section DML -->
@@ -713,32 +724,7 @@ CREATE DATABASE MonSiteDB
 </section>
 
  
- <style>
- .command-label {
-	color: #3498db;
-	min-width: 200px;
-	display: inline-block;
-	font-family: 'Courier New', monospace;
- }
  
- .command-code {
-	color: #ecf0f1;
-	font-family: 'Courier New', monospace;
-	display: block;
-	white-space: pre;
-	padding-left: 20px;
- }
- 
- .command-item {
-	padding: 10px 0;
-	border-bottom: 1px solid #34495e;
- }
- 
- .command-item:last-child {
-	border-bottom: none;
- }
- </style>
-
 <section id="creer-table" class="section">
     <div class="content-section">
         <h1>Créer une Table</h1>
@@ -828,7 +814,7 @@ CREATE TABLE employes (
     <div class="content-section">
         <h1>INSERT / UPDATE / DELETE / DROP</h1>
 
-        <h2>Introduction</h2>
+        
         <p class="highlight-box">
             Les commandes <strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>DELETE</strong> et <strong>DROP</strong> en SQL sont essentielles 
             pour la manipulation des données et des structures de tables dans une base de données. Ces commandes permettent 
@@ -1032,6 +1018,189 @@ CREATE TABLE employes (
     </div>
 </section>
 
+<section id="selection" class="section">
+    <div class="content-section">
+        <h1>Opérations de sélection</h1>
+        
+        <p>Les opérations de sélection en SQL sont principalement effectuées à l'aide de la commande SELECT. Cette commande vous permet de récupérer des données à partir d'une ou plusieurs tables dans une base de données en fonction de critères spécifiques.</p>
+
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Sélection de toutes les colonnes</span>
+                <span class="command-code">SELECT * FROM nom_de_la_table;</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Sélection de colonnes spécifiques</span>
+                <span class="command-code">SELECT nom, prenom, email FROM utilisateurs;</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Filtrage avec condition</span>
+                <span class="command-code">SELECT * FROM utilisateurs WHERE nom = 'Doe';</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Tri des résultats</span>
+                <span class="command-code">SELECT * FROM utilisateurs ORDER BY nom ASC;</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Agrégation</span>
+                <span class="command-code">SELECT COUNT(*) FROM utilisateurs;</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Regroupement</span>
+                <span class="command-code">SELECT age, COUNT(*) FROM utilisateurs GROUP BY age;</span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Jointures</span>
+                <span class="command-code">SELECT commandes.commande_id, clients.nom 
+FROM commandes 
+JOIN clients ON commandes.client_id = clients.client_id;</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="operateurs" class="section">
+    <div class="content-section">
+        <h1>Opérateurs</h1>
+
+        <h2>Opérateurs arithmétiques</h2>
+        <p>Les opérateurs arithmétiques en SQL sont utilisés pour effectuer des opérations mathématiques sur les données numériques stockées dans une base de données.</p>
+
+        <div class="sql-table">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="operator-name">Addition (+)</td>
+                        <td class="operator-desc">L'opérateur d'addition est utilisé pour additionner des valeurs numériques.</td>
+                        <td class="operator-example">SELECT prix_unitaire + frais_livraison AS prix_total FROM produits;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Soustraction (-)</td>
+                        <td class="operator-desc">L'opérateur de soustraction est utilisé pour soustraire des valeurs numériques.</td>
+                        <td class="operator-example">SELECT solde_initial - montant_depense AS solde_final FROM compte_bancaire;</td>
+                    </tr>
+					<tr>
+						<td class="operator-name">Négation (- unaire)</td>
+						<td class="operator-desc">L'opérateur de négation unaire est utilisé pour inverser le signe d'une valeur numérique.</td>
+						<td class="operator-example">SELECT -valeur AS valeur_negative FROM table;</td>
+					</tr>
+                    <tr>
+                        <td class="operator-name">Multiplication (*)</td>
+                        <td class="operator-desc">L'opérateur de multiplication est utilisé pour multiplier des valeurs numériques.</td>
+                        <td class="operator-example">SELECT quantite * prix_unitaire AS montant_total FROM commandes;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Division (/)</td>
+                        <td class="operator-desc">L'opérateur de division est utilisé pour diviser des valeurs numériques.</td>
+                        <td class="operator-example">SELECT benefice / nombre_unites_vendues AS marge_beneficiaire FROM produits;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Modulo (%)</td>
+                        <td class="operator-desc">L'opérateur modulo donne le reste de la division entière de la première valeur par la seconde.</td>
+                        <td class="operator-example">SELECT 13 % 5; -- Cela renverra 3, car 13 / 5 a un reste de 3.</td>
+                    </tr>
+					
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Opérateurs sur les chaînes</h2>
+        <p>Les opérateurs sur les chaînes (ou les opérateurs de concaténation) en SQL sont utilisés pour effectuer des opérations sur les données de texte stockées dans une base de données.</p>
+        
+        <div class="sql-table">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="operator-name">Concaténation (+ ou ||)</td>
+                        <td class="operator-desc">L'opérateur de concaténation est utilisé pour joindre deux chaînes de caractères en une seule.</td>
+                        <td class="operator-example">SELECT prenom || ' ' || nom AS nom_complet FROM utilisateurs;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Longueur</td>
+                        <td class="operator-desc">Les fonctions de longueur sont utilisées pour déterminer la longueur d'une chaîne de caractères.</td>
+                        <td class="operator-example">SELECT nom, LENGTH(nom) AS longueur_nom FROM produits;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Extraction</td>
+                        <td class="operator-desc">Les fonctions d'extraction de sous-chaînes permettent de récupérer une partie d'une chaîne de caractères.</td>
+                        <td class="operator-example">SELECT SUBSTRING(description, 1, 50) AS extrait_description FROM articles;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Recherche</td>
+                        <td class="operator-desc">Recherche de sous-chaînes dans une chaîne principale.</td>
+                        <td class="operator-example">SELECT nom FROM clients WHERE email LIKE '%gmail.com';</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">Remplacement</td>
+                        <td class="operator-desc">Les fonctions de remplacement permettent de remplacer des occurrences de texte.</td>
+                        <td class="operator-example">SELECT REPLACE(commentaire, 'erreur', 'correction') AS commentaire_corrige FROM rapports;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Autres opérateurs</h2>
+        <div class="sql-table">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="operator-name">BETWEEN</td>
+                        <td class="operator-desc">Filtrer les données en fonction d'une plage de valeurs.</td>
+                        <td class="operator-example">SELECT nom, prix FROM produits WHERE prix BETWEEN 50 AND 100;</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">IN</td>
+                        <td class="operator-desc">Vérifie si une valeur correspond à l'une des valeurs d'une liste.</td>
+                        <td class="operator-example">SELECT nom, pays FROM clients WHERE pays IN ('France', 'Allemagne');</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">NOT IN</td>
+                        <td class="operator-desc">Vérifie si une valeur ne correspond à aucune des valeurs d'une liste.</td>
+                        <td class="operator-example">SELECT nom FROM produits WHERE categorie NOT IN ('Électronique', 'Vêtements');</td>
+                    </tr>
+                    <tr>
+                        <td class="operator-name">DISTINCT</td>
+                        <td class="operator-desc">Élimine les doublons des résultats d'une requête.</td>
+                        <td class="operator-example">SELECT DISTINCT pays FROM clients;</td>
+                    </tr>
+
+					<tr>
+						<td class="operator-name">ESCAPE</td>
+						<td class="operator-desc">Permet de rechercher des caractères spéciaux de manière littérale dans une recherche avec LIKE.</td>
+						<td class="operator-example">SELECT nom FROM produits WHERE description LIKE '%\%[0-9]%' ESCAPE '\';</td>
+					</tr>
+					
+					<!-- Ajout SOUNDEX -->
+					<tr>
+						<td class="operator-name">SOUNDEX</td>
+						<td class="operator-desc">Permet de rechercher des chaînes phonétiquement similaires.</td>
+						<td class="operator-example">SELECT nom FROM clients WHERE SOUNDEX(nom) = SOUNDEX('Smith');</td>
+					</tr>
+					
+					<!-- Ajout ANY/SOME -->
+					<tr>
+						<td class="operator-name">ANY/SOME</td>
+						<td class="operator-desc">Compare une valeur avec chaque valeur d'une sous-requête.</td>
+						<td class="operator-example">SELECT commande_id, montant FROM commandes WHERE montant > ANY (SELECT prix FROM produits);</td>
+					</tr>
+					
+					<!-- Ajout ALL -->
+					<tr>
+						<td class="operator-name">ALL</td>
+						<td class="operator-desc">Compare une valeur avec toutes les valeurs d'une sous-requête.</td>
+						<td class="operator-example">SELECT commande_id, montant FROM commandes WHERE montant > ALL (SELECT prix FROM produits);</td>
+					</tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
         <!-- ... autres sections à suivre ... -->
 
