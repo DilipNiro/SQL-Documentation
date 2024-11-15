@@ -655,59 +655,63 @@
 		</div>
 	</div>
  </section>
-
  <section id="creer-bdd" class="section">
-	<div class="content-section">
-		<h1>Créer une base de données</h1>
- 
-		<h2>Syntaxe de base</h2>
-		<div class="code-block">
-			<div class="command-item">
-				<span class="command-label">Syntaxe simple</span>
-				<span class="command-code">
- CREATE DATABASE nom_de_la_base_de_donnees;
-				</span>
-			</div>
- 
-			<div class="command-item">
-				<span class="command-label">Avec options (MySQL)</span>
-				<span class="command-code">
- CREATE DATABASE MaBaseDeDonnees 
- CHARACTER SET utf8 
- COLLATE utf8_general_ci;
-				</span>
-			</div>
-		</div>
- 
-		<h2>Création de table</h2>
-		<div class="code-block">
-			<div class="command-item">
-				<span class="command-label">Syntaxe générale</span>
-				<span class="command-code">
- CREATE TABLE nom_de_la_table (
-	nom_colonne1 type_de_donne1,
-	nom_colonne2 type_de_donne2,
-	... nom_colonneN type_de_donneN
- );
-				</span>
-			</div>
- 
-			<div class="command-item">
-				<span class="command-label">Exemple concret</span>
-				<span class="command-code">
- CREATE TABLE utilisateurs (
-	id INT PRIMARY KEY,
-	nom VARCHAR(50),
-	prenom VARCHAR(50),
-	age INT,
-	email VARCHAR(100),
-	date_inscription DATE
- );
-				</span>
-			</div>
-		</div>
-	</div>
- </section>
+    <div class="content-section">
+        <h1>Créer une Base de Données (BDD)</h1>
+
+        <h2>Syntaxe de base</h2>
+        <p>
+            Pour créer une base de données (BDD) en SQL, on utilise la commande DDL (<em>Data Definition Language</em>) <code>CREATE DATABASE</code>. 
+            Cette commande permet de définir une nouvelle base de données, en spécifiant des options de configuration si nécessaire.
+        </p>
+
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe simple</span>
+                <span class="command-code">
+CREATE DATABASE nom_de_la_base_de_donnees;
+                </span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Avec options (MySQL)</span>
+                <span class="command-code">
+CREATE DATABASE MaBaseDeDonnees
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+                </span>
+            </div>
+        </div>
+
+        <h2>Explications et Options</h2>
+        <p class="highlight-box">
+            La syntaxe peut légèrement différer selon le système de gestion de base de données (SGBD) utilisé. Par exemple, dans MySQL, 
+            des options comme le jeu de caractères (<code>CHARACTER SET</code>) et le classement (<code>COLLATE</code>) permettent de 
+            spécifier les paramètres de codage de la base de données. Cela est utile pour adapter la base de données aux langues et 
+            aux besoins spécifiques des utilisateurs.
+        </p>
+
+        <h2>Exemples d'utilisation</h2>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Création d'une base de données simple</span>
+                <span class="command-code">
+CREATE DATABASE EntrepriseDB;
+                </span>
+            </div>
+
+            <div class="command-item">
+                <span class="command-label">Création avec paramètres de langue (MySQL)</span>
+                <span class="command-code">
+CREATE DATABASE MonSiteDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
  
  <style>
  .command-label {
@@ -734,6 +738,300 @@
 	border-bottom: none;
  }
  </style>
+
+<section id="creer-table" class="section">
+    <div class="content-section">
+        <h1>Créer une Table</h1>
+
+        <h2>Syntaxe de base</h2>
+        <p>
+            Pour créer une table dans une base de données SQL, vous utilisez la commande DDL (<em>Data Definition Language</em>) <code>CREATE TABLE</code>. 
+            Cette commande permet de définir une table en précisant le nom, les colonnes, les types de données associés, et les contraintes.
+        </p>
+
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe générale</span>
+                <span class="command-code">
+CREATE TABLE nom_de_la_table (
+    nom_colonne1 type_de_donne1,
+    nom_colonne2 type_de_donne2,
+    ...
+    nom_colonneN type_de_donneN
+);
+                </span>
+            </div>
+        </div>
+
+        <h2>Exemple Concret</h2>
+        <p>
+            L'exemple suivant montre comment créer une table nommée <code>utilisateurs</code> avec des colonnes représentant des informations sur chaque utilisateur.
+        </p>
+
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Exemple d'une table "utilisateurs"</span>
+                <span class="command-code">
+CREATE TABLE utilisateurs (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    age INT,
+    email VARCHAR(100),
+    date_inscription DATE
+);
+                </span>
+            </div>
+        </div>
+
+        <h2>Explication des Colonnes et Contraintes</h2>
+        <p class="highlight-box">
+            - <strong>id</strong>: Défini comme <em>clé primaire</em> (PRIMARY KEY), garantissant l'unicité de chaque enregistrement. <br>
+            - <strong>nom</strong>, <strong>prenom</strong>, <strong>email</strong>: Colonnes de type <code>VARCHAR</code> pour stocker des chaînes de caractères, avec une longueur maximale spécifiée entre parenthèses.<br>
+            - <strong>age</strong>: Colonne de type <code>INT</code> pour stocker l'âge en entier.<br>
+            - <strong>date_inscription</strong>: Colonne de type <code>DATE</code> pour enregistrer la date d'inscription de chaque utilisateur.
+        </p>
+
+        <h2>Définir des Contraintes</h2>
+        <p>
+            Vous pouvez ajouter différentes contraintes pour assurer l'intégrité des données, telles que :
+        </p>
+        <ul class="tech-list">
+            <li><strong>PRIMARY KEY</strong>: Identifie de manière unique chaque ligne dans la table.</li>
+            <li><strong>NOT NULL</strong>: Empêche les valeurs nulles dans une colonne.</li>
+            <li><strong>UNIQUE</strong>: Garantit que toutes les valeurs d'une colonne sont uniques.</li>
+            <li><strong>FOREIGN KEY</strong>: Crée une relation entre deux tables.</li>
+            <li><strong>CHECK</strong>: Applique une contrainte pour limiter les valeurs d'une colonne.</li>
+            <li><strong>DEFAULT</strong>: Définit une valeur par défaut si aucune valeur n'est spécifiée.</li>
+        </ul>
+
+        <h2>Exemple de Table avec Contraintes</h2>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Exemple avec clés et contraintes</span>
+                <span class="command-code">
+CREATE TABLE employes (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    age INT CHECK (age >= 18),
+    email VARCHAR(100) UNIQUE,
+    departement_id INT,
+    FOREIGN KEY (departement_id) REFERENCES departements(id)
+);
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="operations-crud" class="section">
+    <div class="content-section">
+        <h1>INSERT / UPDATE / DELETE / DROP</h1>
+
+        <h2>Introduction</h2>
+        <p class="highlight-box">
+            Les commandes <strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>DELETE</strong> et <strong>DROP</strong> en SQL sont essentielles 
+            pour la manipulation des données et des structures de tables dans une base de données. Ces commandes permettent 
+            d'ajouter, de modifier, de supprimer des enregistrements et des objets de la base de données.
+        </p>
+
+        <!-- INSERT -->
+        <h2>INSERT INTO</h2>
+        <p>
+            La commande <code>INSERT INTO</code> est utilisée pour ajouter de nouveaux enregistrements (lignes) dans une table existante. 
+            Vous spécifiez la table dans laquelle insérer les données, ainsi que les colonnes et les valeurs à insérer.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe</span>
+                <span class="command-code">
+INSERT INTO nom_de_la_table (colonne1, colonne2, ...)
+VALUES (valeur1, valeur2, ...);
+                </span>
+            </div>
+            <div class="command-item">
+                <span class="command-label">Exemple</span>
+                <span class="command-code">
+INSERT INTO utilisateurs (nom, prenom, age, email)
+VALUES ('Dupont', 'Jean', 30, 'jean.dupont@example.com');
+                </span>
+            </div>
+        </div>
+
+        <!-- UPDATE -->
+        <h2>UPDATE</h2>
+        <p>
+            La commande <code>UPDATE</code> modifie les données existantes dans une table. Elle permet de spécifier les colonnes 
+            à mettre à jour, les nouvelles valeurs, et les conditions pour cibler des enregistrements spécifiques.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe</span>
+                <span class="command-code">
+UPDATE nom_de_la_table
+SET colonne1 = nouvelle_valeur1, colonne2 = nouvelle_valeur2, ...
+WHERE condition;
+                </span>
+            </div>
+            <div class="command-item">
+                <span class="command-label">Exemple</span>
+                <span class="command-code">
+UPDATE utilisateurs
+SET email = 'nouveau.email@example.com'
+WHERE id = 1;
+                </span>
+            </div>
+        </div>
+
+        <!-- DELETE -->
+        <h2>DELETE FROM</h2>
+        <p>
+            La commande <code>DELETE FROM</code> supprime des enregistrements d'une table selon une condition donnée. 
+            Attention : si aucune condition n'est spécifiée, toutes les lignes de la table seront supprimées.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe</span>
+                <span class="command-code">
+DELETE FROM nom_de_la_table
+WHERE condition;
+                </span>
+            </div>
+            <div class="command-item">
+                <span class="command-label">Exemple</span>
+                <span class="command-code">
+DELETE FROM utilisateurs
+WHERE id = 1;
+                </span>
+            </div>
+        </div>
+
+        <!-- DROP -->
+        <h2>DROP</h2>
+        <p>
+            La commande <code>DROP</code> est utilisée pour supprimer des objets de la base de données, tels que des tables, des vues, 
+            des procédures stockées, des déclencheurs, des index, ou même des bases de données entières. <strong>Attention :</strong> 
+            l'utilisation de <code>DROP</code> est irréversible et entraîne la perte complète de l'objet.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Syntaxe (Table)</span>
+                <span class="command-code">
+DROP TABLE nom_de_la_table;
+                </span>
+            </div>
+            <div class="command-item">
+                <span class="command-label">Syntaxe (Base de données)</span>
+                <span class="command-code">
+DROP DATABASE nom_de_la_base_de_donnees;
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="cles" class="section">
+    <div class="content-section">
+        <h1>Clés Primaires et Clés Étrangères</h1>
+
+        <!-- Clé primaire -->
+        <h2>Clé Primaire</h2>
+        <p>
+            Une <strong>clé primaire</strong> est un concept fondamental dans une base de données relationnelle. Elle est utilisée pour identifier de manière unique chaque enregistrement (ligne) dans une table. Voici quelques caractéristiques essentielles de la clé primaire :
+        </p>
+        <p class="highlight-box">
+            <strong>Caractéristiques de la clé primaire :</strong><br>
+            - <strong>Unicité</strong> : Chaque valeur dans la colonne définie comme clé primaire doit être unique dans la table, garantissant ainsi qu'aucune autre ligne ne partage la même valeur.<br>
+            - <strong>Obligation</strong> : Les valeurs dans la colonne de clé primaire doivent être non nulles (pas de valeurs nulles autorisées).<br>
+            - <strong>Identification unique</strong> : La clé primaire identifie chaque enregistrement de façon unique, assurant qu'il n'existe pas de doublons dans la table.<br>
+            - <strong>Indexation</strong> : Un index est souvent créé automatiquement sur la colonne de clé primaire pour optimiser les performances des recherches et des jointures.<br>
+            - <strong>Références</strong> : Les clés primaires sont fréquemment utilisées pour établir des relations avec d'autres tables en tant que clés étrangères, permettant ainsi de relier les données entre les tables.
+        </p>
+
+        <h3>Définition de la Clé Primaire</h3>
+        <p>
+            Pour définir une clé primaire lors de la création d'une table, utilisez la clause <code>PRIMARY KEY</code> après la déclaration de la colonne.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Exemple</span>
+                <span class="command-code">
+CREATE TABLE employes (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    email VARCHAR(100)
+);
+                </span>
+            </div>
+        </div>
+
+        <!-- Clé étrangère -->
+        <h2>Clé Étrangère</h2>
+        <p>
+            Une <strong>clé étrangère</strong> est un élément clé de la modélisation des bases de données relationnelles, servant à établir des liens entre tables. Elle établit une relation entre la table "enfant" (qui contient la clé étrangère) et la table "parente" (référencée). Les clés étrangères garantissent l'intégrité référentielle, assurant ainsi que les données sont cohérentes entre les tables liées.
+        </p>
+        <p class="highlight-box">
+            <strong>Caractéristiques de la clé étrangère :</strong><br>
+            - <strong>Relation entre les tables</strong> : La clé étrangère relie une colonne de la table enfant à une colonne de clé primaire dans la table parente, spécifiant comment les données sont liées entre elles.<br>
+            - <strong>Intégrité référentielle</strong> : La clé étrangère maintient l'intégrité référentielle, c'est-à-dire que les valeurs dans la table enfant doivent obligatoirement exister dans la table parente, évitant ainsi les données incohérentes.<br>
+            - <strong>Opérations en cascade</strong> : Des actions en cascade peuvent être configurées pour qu'une mise à jour ou une suppression dans la table parente entraîne automatiquement des mises à jour ou suppressions correspondantes dans la table enfant.<br>
+            - <strong>Indexation</strong> : Un index peut être créé sur la colonne de clé étrangère pour optimiser les opérations de jointure entre les tables.
+        </p>
+
+        <h3>Définition de la Clé Étrangère</h3>
+        <p>
+            Pour définir une clé étrangère, utilisez la clause <code>FOREIGN KEY</code> suivie de la table et de la colonne de référence dans la table parente.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Exemple</span>
+                <span class="command-code">
+CREATE TABLE departements (
+    id INT PRIMARY KEY,
+    nom VARCHAR(100)
+);
+
+CREATE TABLE employes (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    departement_id INT,
+    FOREIGN KEY (departement_id) REFERENCES departements(id)
+);
+                </span>
+            </div>
+        </div>
+
+        <h3>Actions en Cascade avec Clés Étrangères</h3>
+        <p>
+            Les clés étrangères peuvent inclure des actions en cascade pour spécifier ce qui doit se produire lorsque les données dans la table parente sont modifiées ou supprimées. 
+            Les options les plus utilisées sont <code>ON DELETE CASCADE</code> et <code>ON UPDATE CASCADE</code>.
+        </p>
+        <p class="highlight-box">
+            <strong>Explication des options en cascade :</strong><br>
+            - <strong>ON DELETE CASCADE</strong> : Supprime automatiquement les enregistrements liés dans la table enfant si un enregistrement correspondant est supprimé dans la table parente.<br>
+            - <strong>ON UPDATE CASCADE</strong> : Met à jour automatiquement les enregistrements correspondants dans la table enfant si la valeur de la clé primaire dans la table parente est modifiée.
+        </p>
+        <div class="code-block">
+            <div class="command-item">
+                <span class="command-label">Exemple avec ON DELETE CASCADE</span>
+                <span class="command-code">
+CREATE TABLE employes (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    departement_id INT,
+    FOREIGN KEY (departement_id) REFERENCES departements(id) ON DELETE CASCADE
+);
+                </span>
+            </div>
+        </div>
+        <p class="highlight-box">
+            <strong>Note :</strong> Avec <code>ON DELETE CASCADE</code>, la suppression d'un enregistrement dans la table <code>departements</code> entraînera automatiquement la suppression des enregistrements associés dans la table <code>employes</code>.
+        </p>
+    </div>
+</section>
+
 
         <!-- ... autres sections à suivre ... -->
 
